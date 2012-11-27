@@ -1,0 +1,112 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.atlascopco</groupId>
+	<artifactId>hunspell-bridj</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>HunspellBridJ</name>
+	<url>http://thomas-joiner.github.com/HunspellBridJ</url>
+	
+	<developers>
+		<developer>
+			<name>Thomas Joiner</name>
+			<url>http://thomas-joiner.github.com/</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git@github.com:thomas-joiner/HunspellBridJ.git</connection>
+		<url>https://github.com/thomas-joiner/HunspellBridJ</url>
+		<developerConnection>scm:git:git@github.com:thomas-joiner/HunspellBridJ.git</developerConnection>
+	</scm>
+	<licenses>
+		<license>
+			<name>Mozilla Public License 1.1</name>
+			<url>http://www.spdx.org/licenses/MPL-1.1</url>
+		</license>
+		<license>
+			<name>GNU General Public License v2.0 or later</name>
+			<url>http://www.spdx.org/licenses/GPL-2.0+</url>
+		</license>
+		<license>
+			<name>GNU Lesser General Public License v2.1 or later</name>
+			<url>http://www.spdx.org/licenses/LGPL-2.1+</url>
+		</license>
+	</licenses>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/thomas-joiner/HunspellBridJ/issues</url>
+	</issueManagement>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.10</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.nativelibs4java</groupId>
+			<artifactId>bridj</artifactId>
+			<version>0.6.1</version>
+		</dependency>
+	</dependencies>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-project-info-reports-plugin</artifactId>
+				<version>2.6</version>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>cobertura-maven-plugin</artifactId>
+				<version>2.5.2</version>
+				<configuration>
+					<formats>
+						<format>html</format>
+					</formats>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<version>2.12.4</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<links>
+						<link>http://nativelibs4java.sourceforge.net/bridj/api/development</link>
+					</links>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+	<description>This project is a binding for the Hunspell library for Java, using BridJ for the bindings.</description>
+	<organization>
+		<name>Atlas Copco Drilling Solutions</name>
+		<url>http://www.atlascopco.com/us/</url>
+	</organization>
+	<inceptionYear>2012</inceptionYear>
+</project>
