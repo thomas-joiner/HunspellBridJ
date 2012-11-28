@@ -293,8 +293,8 @@ public class Hunspell implements Closeable {
 	}
 
 	/**
-	 * Add the word to the runtime dictionary with the given affix flags so
-	 * that affixed versions will be recognized as well.
+	 * Add the word to the runtime dictionary with the affix flags of the given
+	 * example word so that affixed versions will be recognized as well.
 	 * 
 	 * @param word the word
 	 * @param exampleWord a word that shows an example of what affix rules apply
