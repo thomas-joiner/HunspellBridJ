@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>HunspellBridJ</name>
-	<url>http://thomas-joiner.github.com/HunspellBridJ</url>
+	<url>http://thomas-joiner.github.com/HunspellBridJ/</url>
 	
 	<developers>
 		<developer>
@@ -38,6 +38,7 @@
 	</licenses>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<github.global.server>github</github.global.server>
 	</properties>
 	<issueManagement>
 		<system>Github</system>
@@ -54,6 +55,35 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>3.0</version>
+				<configuration>
+					<skipDeploy>true</skipDeploy>
+				</configuration>
+			</plugin>
+			<!--plugin>
+				<groupId>com.github.github</groupId>
+				<artifactId>site-maven-plugin</artifactId>
+				<version>0.7</version>
+				<configuration>
+					<message>Building site for ${project.version}</message>
+					<server>github</server>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<phase>site</phase>
+						<configuration>
+							<path>${project.version}</path>
+							<merge>true</merge>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin-->
 		</plugins>
 	</build>
 	<dependencies>
@@ -97,7 +127,7 @@
 				<version>2.9</version>
 				<configuration>
 					<links>
-						<link>http://nativelibs4java.sourceforge.net/bridj/api/development</link>
+						<link>http://nativelibs4java.sourceforge.net/bridj/api/0.6.1</link>
 					</links>
 				</configuration>
 			</plugin>
