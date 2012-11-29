@@ -138,7 +138,10 @@ public class HunspellTest {
 		assertThat(unit.spell(testWord), is(false));
 		unit.addWithAffix(testWord, "monkey");
 		assertThat(unit.spell(testWord), is(true));
+		assertThat(unit.spell(testWord+"'s"), is(true));
 		assertThat(unit.spell(testWord+"s"), is(true));
+		assertThat(unit.spell(testWord+"ed"), is(true));
+		assertThat(unit.spell(testWord+"ing"), is(true));
 	}
 	
 	@Test
