@@ -9,7 +9,7 @@ import org.bridj.Pointer;
 import com.atlascopco.hunspell.HunspellLibrary.Hunhandle;
 
 /**
- * This class implements a object-oriented interface to the C API for Hunspell.
+ * This class implements an object-oriented interface to the C API for Hunspell.
  * 
  * @author Thomas Joiner
  * 
@@ -29,6 +29,24 @@ public class Hunspell implements Closeable {
 		Pointer<Byte> dpath = Pointer.pointerToCString(dictionaryPath);
 		
 		handle = HunspellLibrary.Hunspell_create(affpath, dpath);
+		
+		if ( this.handle == null ) {
+			throw new RuntimeException("Unable to instantiate Hunspell handle.");
+		}
+	}
+	
+	/**
+	 * Instantiate a hunspell object with the given dictionary and affix file
+	 * @param dictionaryPath the path to the dictionary
+	 * @param affixPath the path to the affix file
+	 * @param key the key used to encrypt the dictionary files
+	 */
+	public Hunspell(String dictionaryPath, String affixPath, String key) {
+		Pointer<Byte> affpath = Pointer.pointerToCString(affixPath);
+		Pointer<Byte> dpath = Pointer.pointerToCString(dictionaryPath);
+		Pointer<Byte> keyCString = Pointer.pointerToCString(key);
+		
+		handle = HunspellLibrary.Hunspell_create_key(affpath, dpath, keyCString);
 		
 		if ( this.handle == null ) {
 			throw new RuntimeException("Unable to instantiate Hunspell handle.");
