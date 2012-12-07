@@ -57,6 +57,26 @@ public class HunspellTest {
 		}
 	}
 
+	@Test
+	public void testHzipConstructor() throws URISyntaxException {
+		File parentFile = new File(HunspellTest.class.getResource("/en_US.aff")
+				.toURI()).getParentFile();
+		String dicPath = new File(parentFile, "test.dic").getAbsolutePath();
+		String affPath = new File(parentFile, "test.aff").getAbsolutePath();
+
+		Hunspell hunspell = null;
+		try { 
+			hunspell = new Hunspell(dicPath, affPath, "password");
+
+			String[] correctWords = { "words", "good", "Pegasus", "test" };
+
+			for (String word : correctWords) {
+				assertThat(word, unit.spell(word), is(true));
+			}
+		} finally {
+			hunspell.close();
+		}
+	}
 
 	@Test
 	public void testGetDictionaryEncoding() {

@@ -36,7 +36,22 @@ public class Hunspell implements Closeable {
 	}
 	
 	/**
-	 * Instantiate a hunspell object with the given dictionary and affix file
+	 * <p>
+	 * Instantiate a hunspell object with the given hunzipped dictionary and
+	 * affix files.
+	 * </p>
+	 * 
+	 * <p>
+	 * This is, however more complicated than it looks. Note that the paths,
+	 * aren't actually to the hunzipped dictionary and affix files, they are the
+	 * paths to what they would be named if they weren't hunzipped. In other
+	 * words, if you have the files {@code /path/to/dictionary.dic.hz} and
+	 * {@code /path/to/dictionary.aff.hz} you would call
+	 * {@code new Hunspell("/path/to/dictionary.dic", "/path/to/dictionary.aff", "password")}
+	 * . Note, however, that if the paths that you give actually exist, those
+	 * will be prioritized over the hunzipped versions and will be used instead.
+	 * </p>
+	 * 
 	 * @param dictionaryPath the path to the dictionary
 	 * @param affixPath the path to the affix file
 	 * @param key the key used to encrypt the dictionary files
