@@ -42,7 +42,7 @@ public class Hunspell implements Closeable {
 	 * </p>
 	 * 
 	 * <p>
-	 * This is, however more complicated than it looks. Note that the paths,
+	 * This is, however more complicated than it looks. Note that the paths
 	 * aren't actually to the hunzipped dictionary and affix files, they are the
 	 * paths to what they would be named if they weren't hunzipped. In other
 	 * words, if you have the files {@code /path/to/dictionary.dic.hz} and
