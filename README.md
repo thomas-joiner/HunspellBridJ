@@ -12,7 +12,7 @@ Usage
 Use of this library is very simple.  First instantiate the `Hunspell` object.
 
 ```java
-Hunspell speller = new Hunspell("/path/to/dictionary.dic", "/path/to/affix.aff")
+Hunspell speller = new Hunspell("/path/to/dictionary.dic", "/path/to/affix.aff");
 ```
 
 In order to check whether a word is correctly spelled, use the `#spell(String)` function.
