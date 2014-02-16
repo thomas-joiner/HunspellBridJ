@@ -70,7 +70,12 @@ Note that if the word was added with `#addWithAffix(String,String)`, all affixed
 
 Check the [Javadocs](http://thomas-joiner.github.com/HunspellBridJ/1.0.0-SNAPSHOT/apidocs) for further information.
 
-Known Problems
---------------
+Supported Architectures
+-----------------------
 
-* No library is provided for OSX...I do not have an OSX machine to compile on.  If someone sends me one in a pull request, I would be happy to include it.
+* Linux x86
+* Linux x86_64
+* Windows x86
+* Windows x64
+* Mac OS X x86
+* Mac OS X x86_64
