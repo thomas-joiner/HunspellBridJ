@@ -1,10 +1,15 @@
 package com.atlascopco.hunspell;
 
 import java.io.Closeable;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.bridj.Pointer;
+import org.bridj.Pointer.Releaser;
+import org.bridj.Pointer.StringType;
+import org.bridj.PointerIO;
 
 import com.atlascopco.hunspell.HunspellLibrary.Hunhandle;
 
@@ -79,7 +84,7 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		
 		int result = HunspellLibrary.Hunspell_spell(handle, wordCString);
 		
@@ -94,6 +99,10 @@ public class Hunspell implements Closeable {
 	 */
 	public boolean isCorrect(String word) {
 		return spell(word);
+	}
+	
+	private Charset getDictionaryCharset() {
+		return Charset.forName(getDictionaryEncoding());
 	}
 
 	/**
@@ -121,18 +130,16 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_suggest(handle, slst, wordCString);
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -141,7 +148,7 @@ public class Hunspell implements Closeable {
 		
 		return suggestions;
 	}
-
+	
 	/**
 	 * Morphological analysis of the given word.
 	 * @param word the word to analyze
@@ -153,18 +160,16 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_analyze(handle, slst, wordCString);
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -185,18 +190,16 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_stem(handle, slst, wordCString);
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -215,19 +218,17 @@ public class Hunspell implements Closeable {
 	public List<String> stem(List<String> analysis) {
 		// check handle before attempting to operate on
 		checkHandle();
-		
+
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
-		Pointer<Pointer<Byte>> analysisCStrings = Pointer.pointerToCStrings(analysis.toArray(new String[analysis.size()]));
+		Pointer<Pointer<Byte>> analysisCStrings = toEncodedCStringList(analysis);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_stem2(handle, slst, analysisCStrings, analysis.size());
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -251,18 +252,16 @@ public class Hunspell implements Closeable {
 		checkWord("basedOn", basedOn);
 		
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
-		Pointer<Byte> word2CString = Pointer.pointerToCString(basedOn);
+		Pointer<Byte> wordCString = toEncodedCString(word);
+		Pointer<Byte> word2CString = toEncodedCString(basedOn);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_generate(handle, slst, wordCString, word2CString);
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -285,18 +284,16 @@ public class Hunspell implements Closeable {
 		checkWord("word", word);
 		
 		Pointer<Pointer<Pointer<Byte>>> slst = Pointer.allocatePointerPointer(Byte.class);
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
-		Pointer<Pointer<Byte>> analysisCStrings = Pointer.pointerToCStrings(basedOnAnalysis.toArray(new String[basedOnAnalysis.size()]));
+		Pointer<Byte> wordCString = toEncodedCString(word);
+		Pointer<Pointer<Byte>> analysisCStrings = toEncodedCStringList(basedOnAnalysis);
 		
 		int numResults = 0;
 		
-		List<String> suggestions = new ArrayList<String>();
+		List<String> suggestions = Collections.emptyList();
 		try {
 			numResults = HunspellLibrary.Hunspell_generate2(handle, slst, wordCString, analysisCStrings, basedOnAnalysis.size());
 		
-			for ( int i = 0; i < numResults; i++) {
-				suggestions.add(slst.get().get(i).getCString());
-			}
+			suggestions = encodedCStringListToStringList(slst, numResults);
 		} finally {
 			if ( slst != null ) {
 				this.free_list(slst, numResults);
@@ -316,7 +313,7 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		
 		int result = HunspellLibrary.Hunspell_add(handle, wordCString);
 
@@ -339,8 +336,8 @@ public class Hunspell implements Closeable {
 		checkWord("word", word);
 		checkWord("exampleWord", exampleWord);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
-		Pointer<Byte> example = Pointer.pointerToCString(exampleWord);
+		Pointer<Byte> wordCString = toEncodedCString(word);
+		Pointer<Byte> example = toEncodedCString(exampleWord);
 		
 		int result = HunspellLibrary.Hunspell_add_with_affix(handle, wordCString, example);
 		
@@ -360,7 +357,7 @@ public class Hunspell implements Closeable {
 		checkHandle();
 		checkWord("word", word);
 		
-		Pointer<Byte> wordCString = Pointer.pointerToCString(word);
+		Pointer<Byte> wordCString = toEncodedCString(word);
 		
 		int result = HunspellLibrary.Hunspell_remove(handle, wordCString);
 		
@@ -431,6 +428,103 @@ public class Hunspell implements Closeable {
 		}
 		
 		super.finalize();
+	}
+	
+	/**
+	 * Returns the bytes for a cstring (null terminated string) in the
+	 * encoding of the dictionary.
+	 * 
+	 * @param str the string to encode
+	 * @return the encoded bytes
+	 */
+	private byte[] encodeCStringBytes(String str) {
+        // get the encoded bytes of the string
+		byte[] strBytes = str.getBytes(getDictionaryCharset());
+		// allocate a buffer with one more byte so we can create a null-terminated
+		// cstring
+		byte[] cStringBytes = new byte[strBytes.length+1];
+		
+		// copy the encoded bytes into the cstring buffer
+		System.arraycopy(strBytes, 0, cStringBytes, 0, strBytes.length);
+		// ensure that the final byte is set to null
+		cStringBytes[cStringBytes.length-1] = 0;
+		
+		return cStringBytes;
+	}
+	
+	/**
+	 * Returns a BridJ pointer to the encoded cstring of the
+	 * provided string.
+	 * @param str the string to encode
+	 * @return the pointer
+	 */
+	private Pointer<Byte> toEncodedCString(String str) {
+		byte[] cStringBytes = encodeCStringBytes(str);
+		
+		// convert it for use with BridJ
+		Pointer<Byte> ptrBytes = Pointer.pointerToBytes(cStringBytes);
+		
+		return ptrBytes;
+    }
+	
+	/**
+	 * Convert a list of strings to a list of cstrings in the
+	 * dictionary encoding. 
+	 * @param strings the strings to encode
+	 * @return the pointer
+	 * @see Pointer#pointerToCStrings(String...)
+	 */
+	@SuppressWarnings("unchecked")
+	public Pointer<Pointer<Byte>> toEncodedCStringList(final List<String> strings) {
+    	if (strings == null)
+    		return null;
+        final int len = strings.size();
+        final Pointer<Byte>[] pointers = (Pointer<Byte>[])new Pointer[len];
+        Pointer<Pointer<Byte>> mem = Pointer.allocateArray(PointerIO.<Byte>getPointerInstance(Byte.class), len, new Releaser() {
+        	//@Override
+        	public void release(Pointer<?> p) {
+        		Pointer<Pointer<Byte>> mem = (Pointer<Pointer<Byte>>)p;
+				Charset dictionaryCharset = getDictionaryCharset();
+        		for (int i = 0; i < len; i++) {
+        			Pointer<Byte> pp = mem.get(i);
+        			if (pp != null)
+						strings.set(i, pp.getString(StringType.C, dictionaryCharset));
+        			pp = pointers[i];
+        			if (pp != null)
+        				pp.release();
+                }
+        	}
+        });
+        for (int i = 0; i < len; i++)
+            mem.set(i, pointers[i] = toEncodedCString(strings.get(i)));
+
+		return mem;
+    }
+	
+	/**
+	 * Turn a cstring encoded in the dictionary's charset to a Java string.
+	 * @param cString the cstring to decode
+	 * @return the string 
+	 */
+	private String encodedCStringToJavaString(Pointer<Byte> cString) {
+		return cString.getStringAtOffset(0, StringType.C, getDictionaryCharset());
+	}
+	
+	/**
+	 * Turn a list of cstrings encoded in the dictionary's charset to a Java list of strings.
+	 * @param slst the results list
+	 * @param numResults the number of results in the list
+	 * @return the list of strings
+	 */
+	private List<String> encodedCStringListToStringList(Pointer<Pointer<Pointer<Byte>>> slst,
+			int numResults) {
+		List<String> strings = new ArrayList<String>();
+		
+		for ( int i = 0; i < numResults; i++) {
+			strings.add(encodedCStringToJavaString(slst.get().get(i)));
+		}
+		
+		return strings;
 	}
 
 }
