@@ -61,6 +61,16 @@ public class HunspellLibrary {
 			Pointer<HunspellLibrary.Hunhandle> pHunspell);
 
 	/**
+	* <p>Add dictionary (.dic file only)</p>
+	* Original signature : <code>int Hunspell_add_dic(HunHandle*, const char*)</code><br>
+	* @param pHunsepll the handle on the hunspell object
+	* @param dpath The path of the dictionary file
+	* @return 0 if the dictionary was loaded, 1 if there are no available slots
+	*/
+	public static native int Hunspell_add_dic(
+			Pointer<HunspellLibrary.Hunhandle> pHunspell, Pointer<Byte> dpath);
+
+	/**
 	 * <p>spellcheck word</p>
 	 * Original signature :
 	 * <code>int Hunspell_spell(Hunhandle*, const char*)</code><br>

@@ -304,6 +304,24 @@ public class Hunspell implements Closeable {
 	}
 
 	/**
+	 * Add an additional dictionary file (.dic file only, no affix file)
+	 * to the runtime dictionary.
+	 * @param dpath the Path to the dictionary file.
+	 * @see HunspellLibrary#Hunspell_add_dic(Pointer, Pointer)
+	 */
+	public void addDic(String dpath) {
+		// check handle before attempting to operate on
+		checkHandle();
+		Pointer<Byte> dpathCString = Pointer.pointerToCString(dpath);
+
+		int result = HunspellLibrary.Hunspell_add_dic(handle, dpathCString);
+
+		if ( result != 0) {
+			throw new RuntimeException("No available slot to add dictionary.");
+		}
+	}
+
+	/**
 	 * Add a word to the runtime dictionary.
 	 * @param word the word to add
 	 * @see HunspellLibrary#Hunspell_add(Pointer, Pointer)
