@@ -308,9 +308,7 @@ public class HunspellTest {
 	public void testAddDictionary() throws URISyntaxException {
 		String userDicPath = new File(HunspellTest.class.getResource("/user.dic")
 				.toURI()).getAbsolutePath();
-		System.out.println(userDicPath);
 		unit.addDic(userDicPath);
-
 
 		String[] correctWords = new String[] {"words", "good", "Pegasus", "test",
 			"supercalifragilisticexpialidocious",
