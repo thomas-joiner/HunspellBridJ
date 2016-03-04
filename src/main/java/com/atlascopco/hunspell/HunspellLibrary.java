@@ -63,7 +63,7 @@ public class HunspellLibrary {
 	/**
 	* <p>Add dictionary (.dic file only)</p>
 	* Original signature : <code>int Hunspell_add_dic(HunHandle*, const char*)</code><br>
-	* @param pHunsepll the handle on the hunspell object
+	* @param pHunspell the handle on the hunspell object
 	* @param dpath The path of the dictionary file
 	* @return 0 if the dictionary was loaded, 1 if there are no available slots
 	*/
