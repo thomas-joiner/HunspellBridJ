@@ -440,7 +440,7 @@ public class Hunspell implements Closeable {
 	
 	@Override
 	protected void finalize() throws Throwable {
-		if (this.closedAt!=null){
+		if (this.closedAt == null){
 			this.close();
 			System.err.println("Hunspell instance was not closed!");
 		}
