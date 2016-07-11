@@ -9,7 +9,7 @@
 
 	<groupId>com.atlascopco</groupId>
 	<artifactId>hunspell-bridj</artifactId>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.4</version>
 	<packaging>jar</packaging>
 
 	<name>HunspellBridJ</name>
