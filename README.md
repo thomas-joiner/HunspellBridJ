@@ -1,13 +1,10 @@
 HunspellBridJ
 =============
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+
 [![Build Status](https://travis-ci.org/thomas-joiner/HunspellBridJ.png)](https://travis-ci.org/thomas-joiner/HunspellBridJ)
 
 This library provides an API to interface with Hunspell using BridJ.
-
-Setup
------
-Install Hunspell from the command line with `brew install hunspell`, then add the path to your build. This project is available at Maven Central: http://search.maven.org/#artifactdetails%7Ccom.atlascopco%7Chunspell-bridj%7C1.0.4%7Cjar
 
 Usage
 -----
@@ -82,3 +79,14 @@ Supported Architectures
 * Windows x64
 * Mac OS X x86
 * Mac OS X x86_64
+
+Maven
+-----
+This project is available at Maven Central with the following dependency:
+```
+<dependency>
+    <groupId>com.atlascopco</groupId>
+    <artifactId>hunspell-bridj</artifactId>
+    <version>1.0.4</version>
+</dependency>
+```
