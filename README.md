@@ -6,6 +6,8 @@ HunspellBridJ
 
 This library provides an API to interface with Hunspell using BridJ.
 
+Free software licensed under GPL/LGPL/MPL tri-license, same as Hunspell itself.
+
 Usage
 -----
 
