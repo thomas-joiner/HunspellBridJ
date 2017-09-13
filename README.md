@@ -79,3 +79,14 @@ Supported Architectures
 * Windows x64
 * Mac OS X x86
 * Mac OS X x86_64
+
+Maven
+-----
+This project is available at Maven Central with the following dependency:
+```
+<dependency>
+    <groupId>com.atlascopco</groupId>
+    <artifactId>hunspell-bridj</artifactId>
+    <version>1.0.4</version>
+</dependency>
+```
