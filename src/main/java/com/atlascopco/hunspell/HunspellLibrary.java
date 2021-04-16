@@ -21,7 +21,7 @@ import org.bridj.ann.Runtime;
 @Runtime(CRuntime.class)
 public class HunspellLibrary {
 	static {
-		BridJ.register();
+		BridJ.register(HunspellLibrary.class);
 	}
 
 	public static final int MAXWORDUTF8LEN = 256;
