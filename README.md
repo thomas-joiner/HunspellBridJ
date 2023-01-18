@@ -1,10 +1,10 @@
-HunspellBridJ
+jHunspell
 =============
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
 
-[![Build Status](https://travis-ci.org/thomas-joiner/HunspellBridJ.png)](https://travis-ci.org/thomas-joiner/HunspellBridJ)
+[![Build Status](https://github.com/nikialeksey/jhunspell/actions/workflows/ci.yml/badge.svg)](https://travis-ci.org/nikialeksey/jhunspell)
 
-This library provides an API to interface with Hunspell using BridJ.
+This library provides an API to interface with Hunspell using JNA.
 
 Free software licensed under GPL/LGPL/MPL tri-license, same as Hunspell itself.
 
@@ -70,8 +70,6 @@ speller.spell(userWord); // returns false
 
 Note that if the word was added with `#addWithAffix(String,String)`, all affixed forms of the word *will* be removed as well.
 
-Check the [Javadocs](http://thomas-joiner.github.com/HunspellBridJ/1.0.0-SNAPSHOT/apidocs) for further information.
-
 Supported Architectures
 -----------------------
 
@@ -81,14 +79,35 @@ Supported Architectures
 * Windows x64
 * Mac OS X x86
 * Mac OS X x86_64
+* Mac OS AARCH64
 
 Maven
 -----
 This project is available at Maven Central with the following dependency:
 ```
 <dependency>
-    <groupId>com.atlascopco</groupId>
-    <artifactId>hunspell-bridj</artifactId>
-    <version>1.0.4</version>
+    <groupId>com.nikialeksey</groupId>
+    <artifactId>jhunspell</artifactId>
+    <version>1.0.5</version>
 </dependency>
 ```
+
+Changelog
+---------
+## 1.0.5
+- Add macos aarch64 support
+- Use JNA instead of BridJ
+
+## 1.0.2
+
+- Update Hunspell libraries to 1.3.4
+- Support alternate dictionary encodings
+- Add support for `Hunspell_add_dic`
+
+## 1.0.1
+
+- Add support for Mac OS X
+
+## 1.0.0
+
+- Initial release
