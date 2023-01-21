@@ -1,8 +1,9 @@
 jHunspell
 =============
 [![Project Status: Active - The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
-
 [![Build Status](https://github.com/nikialeksey/jhunspell/actions/workflows/ci.yml/badge.svg)](https://travis-ci.org/nikialeksey/jhunspell)
+
+[![Lib version][lib-version-badge]][lib-version-link]
 
 This library provides an API to interface with Hunspell using JNA.
 
@@ -84,11 +85,11 @@ Supported Architectures
 Maven
 -----
 This project is available at Maven Central with the following dependency:
-```
+```xml
 <dependency>
     <groupId>com.nikialeksey</groupId>
     <artifactId>jhunspell</artifactId>
-    <version>1.0.5</version>
+    <version><!-- library version --></version>
 </dependency>
 ```
 
@@ -111,3 +112,6 @@ Changelog
 ## 1.0.0
 
 - Initial release
+
+[lib-version-badge]: https://img.shields.io/maven-central/v/com.nikialeksey/jhunspell.svg?label=maven
+[lib-version-link]: https://maven-badges.herokuapp.com/maven-central/com.nikialeksey/jhunspell

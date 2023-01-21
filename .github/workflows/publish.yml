@@ -17,13 +17,8 @@ jobs:
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
           gpg-passphrase: GPG_PASSPHRASE
-      - name: Check gpg
-        run: gpg --list-secret-keys
       - name: Publish
-        run: |
-          gpg --list-secret-keys
-          mvn deploy
-          gpg --list-secret-keys
+        run: mvn deploy
         env:
           MAVEN_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           MAVEN_PASSWORD: ${{ secrets.OSSRH_TOKEN }}
